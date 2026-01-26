@@ -158,57 +158,85 @@
 					</div>
 					{% endif %}
 					<div class="block descricao-section">
-						<div class="descricao">
-							<h2 class="t">{{ store.getDefaultText('titulo_texto_descricao_produto', 'DESCRIÇÃO') }}</h2>
-							<div class="texto">
-								{{ produto.description|raw }}
+						<div class="accordion-item">
+							<h2 class="accordion-header" data-target="descricao">
+								<span>{{ store.getDefaultText('titulo_texto_descricao_produto', 'Descrição') }}</span>
+								<span class="accordion-icon">+</span>
+							</h2>
+							<div class="accordion-content" id="descricao">
+								<div class="accordion-body">
+									{{ produto.description|raw }}
+								</div>
 							</div>
 						</div>
 
 						{% if produto.specification|raw %}
-						<div class="descricao hidden">
-							<h2 class="t">{{ store.getDefaultText('titulo_texto_especificacoes_produto', 'ESPECIFICAÇÕES') }}</h2>
-							<div class="texto">
-								{{ produto.specification|raw }}
-							</div>
-						</div>
-						{% endif %}
-						{% if produto.attributes != "[]" %}
-						<div class="descricao hidden">
-							<h2 class="t">{{ store.getDefaultText('titulo_texto_atributos_produto', 'ATRIBUTOS') }}</h2>
-							<div class="texto">
-								<div class="table">
-									{% for attr in produto.attributes %}
-									{% set valores = {} %}
-									{% for valor in attr.valores %}
-									{% set valores = valores|merge({(loop.index):valor.nome}) %}
-									{% endfor %}
-									<div class="item no-hover">
-										<div class="tb40">
-											{{ attr.nome }}
-										</div>
-										<div class="tb60">
-											<p>{{ valores|join(", ") }}</p>
-										</div>
-									</div>
-									{% endfor %}
+						<div class="accordion-item">
+							<h2 class="accordion-header" data-target="especificacoes">
+								<span>{{ store.getDefaultText('titulo_texto_especificacoes_produto', 'Modelagem e tecnologias') }}</span>
+								<span class="accordion-icon">+</span>
+							</h2>
+							<div class="accordion-content" id="especificacoes">
+								<div class="accordion-body">
+									{{ produto.specification|raw }}
 								</div>
 							</div>
 						</div>
 						{% endif %}
-						{% if produto.items|raw %}
-						<div class="descricao hidden">
-							<h2 class="t">{{ store.getDefaultText('titulo_texto_inclusos_produto', 'ITENS INCLUSOS') }}</h2>
-							<div class="texto">
-								{{ produto.items|raw }}
+
+						{% if produto.attributes != "[]" %}
+						<div class="accordion-item">
+							<h2 class="accordion-header" data-target="atributos">
+								<span>{{ store.getDefaultText('titulo_texto_atributos_produto', 'Composição e cuidados') }}</span>
+								<span class="accordion-icon">+</span>
+							</h2>
+							<div class="accordion-content" id="atributos">
+								<div class="accordion-body">
+									<div class="table">
+										{% for attr in produto.attributes %}
+										{% set valores = {} %}
+										{% for valor in attr.valores %}
+										{% set valores = valores|merge({(loop.index):valor.nome}) %}
+										{% endfor %}
+										<div class="item no-hover">
+											<div class="tb40">
+												{{ attr.nome }}
+											</div>
+											<div class="tb60">
+												<p>{{ valores|join(", ") }}</p>
+											</div>
+										</div>
+										{% endfor %}
+									</div>
+								</div>
 							</div>
 						</div>
 						{% endif %}
+
+						{% if produto.items|raw %}
+						<div class="accordion-item">
+							<h2 class="accordion-header" data-target="inclusos">
+								<span>{{ store.getDefaultText('titulo_texto_inclusos_produto', 'ITENS INCLUSOS') }}</span>
+								<span class="accordion-icon">+</span>
+							</h2>
+							<div class="accordion-content" id="inclusos">
+								<div class="accordion-body">
+									{{ produto.items|raw }}
+								</div>
+							</div>
+						</div>
+						{% endif %}
+
 						{% if produto.warranty|raw %}
-						<div class="descricao ">
-							<h2 class="t">{{ store.getDefaultText('titulo_texto_garantia_produto', 'GARANTIA') }}</h2>
-							<div class="texto">
-								<p>{{ produto.warranty }}</p>
+						<div class="accordion-item">
+							<h2 class="accordion-header" data-target="garantia">
+								<span>{{ store.getDefaultText('titulo_texto_garantia_produto', 'GARANTIA') }}</span>
+								<span class="accordion-icon">+</span>
+							</h2>
+							<div class="accordion-content" id="garantia">
+								<div class="accordion-body">
+									<p>{{ produto.warranty }}</p>
+								</div>
 							</div>
 						</div>
 						{% endif %}
@@ -389,14 +417,14 @@
 		});
 		{% endif %}
 		
-		$('#produto .descricao .t').click(function(e){
-			if($(this).parents('.descricao').hasClass('hidden')){
-				$(this).next('.texto').show(100);
-				$(this).parents('.descricao').removeClass('hidden');
-			}else{
-				$(this).next('.texto').hide(100);
-				$(this).parents('.descricao').addClass('hidden');
-			}
+		// Accordion functionality
+		$('.accordion-header').click(function(){
+			const target = $(this).data('target');
+			const content = $('#' + target);
+			
+			// Toggle active class
+			$(this).toggleClass('active');
+			content.toggleClass('active');
 		});
 		
 		{% if geral.hasSmartHint %}

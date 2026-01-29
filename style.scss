@@ -483,6 +483,7 @@
 			font-weight: 400;
 			color: #333;
 			transition: all 0.3s ease;
+			text-transform: none !important;
 			
 			&:hover {
 				opacity: 0.7;
@@ -645,7 +646,6 @@
 }
 #produto .variacoes .t, #produto .campos_adicionais .t {
     margin-top: 5px;
-    text-transform: uppercase;
 }
 #buytogether .item .checkbox-container input:checked~.checkmark {
     background-color: #333;

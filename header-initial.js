@@ -105,3 +105,32 @@ $(function(){
 		}
 	});
 });
+
+// CARRINHO DRAWER
+$(function(){
+    $('.opencart').click(function(e){
+        e.stopPropagation();
+        $('.float_cart').addClass('active');
+        $('.cart-overlay').addClass('active');
+        $('body').addClass('drawer-open');
+    });
+
+    $(document).on('click', '.cart-overlay', function(e){
+        e.preventDefault();
+        $('.float_cart').removeClass('active');
+        $('.cart-overlay').removeClass('active');
+        $('body').removeClass('drawer-open');
+    });
+
+    $(document).keyup(function(e){
+        if(e.key === "Escape"){
+            $('.float_cart').removeClass('active');
+            $('.cart-overlay').removeClass('active');
+            $('body').removeClass('drawer-open');
+        }
+    });
+
+    $('.float_cart').click(function(e){
+        e.stopPropagation();
+    });
+});

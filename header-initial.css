@@ -3,6 +3,9 @@ body{
         position: relative;
         overflow-Y: hidden;
     }
+    &.drawer-open {
+        overflow: hidden !important;
+    }
 }
 .Logo_mobile{
 	flex: 1 1 auto;
@@ -377,44 +380,32 @@ header{
 					height: 32px;
 					align-items: flex-start;
 				}
-				&:hover{
-					.float_cart{
-						visibility: visible;
-						opacity: 1;
-					}
-				}
+				
 				.float_cart{
-					display: block;
-					position: absolute;
-					top: calc(100% + 12px);
-					right: 10px;
-					width: 315px;
-					height: auto;
-					padding: 10px;
-					visibility: hidden;
-					opacity: 0;
+					display: flex;
+					flex-direction: column;
+					position: fixed;
+					top: 0;
+					right: -100%;
+					width: 100%;
+					max-width: 450px;
+					height: 100vh;
 					background-color: var(--departamentos_cor_fundo);
 					color: var(--departamentos_cor);
-					border-radius: 4px;
-					z-index: 9999;
-					box-shadow: rgb(0 0 0 / 20%) 0px 3px 10px 0px;
-					transition: all 200ms ease;
-					cursor: default;
+					z-index: 99999;
+					box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+					transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+					padding: 20px;
+					overflow-y: auto;
 
-					&.open{
-						visibility: visible;
-						opacity: 1;				
+					&.active {
+						right: 0;
 					}
 
-					&.active{
-						@media(max-width: 600){
-							visibility: visible;
-							opacity: 1;	
-						}	
+					@media(max-width: 600px) {
+						max-width: 90%;
 					}
-					@media(min-width: 992px){
-						width: 440px;
-					}
+
 					.zero_itens{
 						width: 100%;
 						height:100%;
@@ -432,17 +423,18 @@ header{
 							}
 						}
 					}
+					
 					.product-grid{
 						width: 100%;
-						height:100%;
+						flex: 1;
 						display: flex;
 						flex-direction: column;
 						justify-content: flex-start;
 						align-items: center;
 						padding: 0.25rem;
 						padding-top: 1.75rem;
-						overflow: auto;
-						max-height: 350px;
+						overflow-y: auto;
+						max-height: none;
 						&::-webkit-scrollbar{
 							width: 0.5rem;
 						}
@@ -458,6 +450,7 @@ header{
 							opacity: 0.75;
 						}
 					}
+					
 					.product-item{
 						width: 100%;
 						position: relative;
@@ -512,6 +505,7 @@ header{
 							}
 						}
 					}
+					
 					.total_wrapper{
 						width:100%;
 						padding: 0.5rem 0.75rem;
@@ -531,6 +525,7 @@ header{
 							}
 						}
 					}
+					
 					.btn_group{
 						width: 100%;
 						padding: 0.75rem;
@@ -798,6 +793,22 @@ header{
 		}
 	}    
 }
+
+.cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 9998;
+    display: none;
+    
+    &.active { 
+        display: block; 
+    }
+}
+
 #searchMobile {
 	display: block;
 	width: 90%;

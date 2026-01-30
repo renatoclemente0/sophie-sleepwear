@@ -1,55 +1,48 @@
 {% set carrinho = store.cart() %}
 
-{% if carrinho.total_product == 0 %}
-<div class="zero_itens">
-	<p><b>Seu carrinho está vazio</b>, que tal adicionar alguns produtos?</p>
+<div class="cart-header">
+	<h3>Seu Carrinho</h3>
+	<button class="close-cart" type="button">
+		<ion-icon name="close-outline"></ion-icon>
+	</button>
 </div>
-{% else %}
-<div class="product-grid">
-	{% for product in carrinho.cart.items %}
-	<div class="product-item" data-pid="{{product.pid}}" data-sku="{{product.sku}}">
-		<div class="product-thumb">
-			<a href="{{ product.url_relative }}"><img src="{{ product.foto }}" alt="{{ product.produto }}" class="img-fluid"></a>
-		</div>
-		<div class="product-desc">
-			<h4 class="produto mb-4">
-				{{ product.produto }} 
-				<span class="btn_remove">
-					<a href="" class="bt-remover b_remove">
-						{% include('assets/delete-trash.svg') %}
-					</a>
-				</span>
-			</h4>
-			<p class="quantidade mb-3"><span>{{ product.quantidade }}x {{ product.valor_parcial|valor}}</span><span class="valor text-right">R${{ product.valor_parcial|valor}}</span></p>
-		</div>
+
+<div class="cart-body">
+	{% if carrinho.total_product == 0 %}
+	<div class="zero_itens">
+		<p><b>Seu carrinho está vazio</b>, que tal adicionar alguns produtos?</p>
 	</div>
-	{% endfor %}
-</div>
+	{% else %}
+	<div class="product-grid">
+		{% for product in carrinho.cart.items %}
+		<div class="product-item" data-pid="{{product.pid}}" data-sku="{{product.sku}}">
+			<div class="product-thumb">
+				<a href="{{ product.url_relative }}"><img src="{{ product.foto }}" alt="{{ product.produto }}" class="img-fluid"></a>
+			</div>
+			<div class="product-desc">
+				<h4 class="produto mb-4">{{ product.produto }}</h4>
+				<p class="quantidade mb-3">
+					<span>{{ product.quantidade }}x {{ product.valor_parcial|valor}}</span>
+					<span class="valor text-right">R${{ product.valor_parcial|valor}}</span>
+				</p>
+			</div>
+			<div class="btn_remove">
+				<a href="#" class="bt-remover">
+					{% include('assets/delete-trash.svg') %}
+				</a>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	{% endif %}
 
-{% endif %}
-
-{% if carrinho.total_product != 0 %}
-<div class="total_wrapper">
-	<p class="total_itens mb-3"><span>Total de peças:</span> <span class="text-right">{{ carrinho.total_items}}</span></p>
-	<p class="total_valor"> <span>Total:</span> <span class="text-right">R${{ carrinho.cart.amount.total|valor }}</span></p>
+	{% if carrinho.total_product != 0 %}
+	<div class="total_wrapper">
+		<p class="total_itens mb-3"><span>Total de peças:</span> <span class="text-right">{{ carrinho.total_items}}</span></p>
+		<p class="total_valor"> <span>Total:</span> <span class="text-right">R${{ carrinho.cart.amount.total|valor }}</span></p>
+	</div>
+	<div class="btn_group">
+		<a href="/carrinho" class="cart_btn">Ir para o Carrinho</a>
+	</div>
+	{% endif %}
 </div>
-<div class="btn_group">
-	<a href="/carrinho" class="cart_btn">Ir para o Carrinho</a>
-</div>
-{% endif %}
-<script>
-	$('.b_remove').click(function(e){
-		e.preventDefault();
-		if(confirm('Deseja realmente remover esse produto?')){
-			var sku = $(this).parents('.product-item').data('sku');
-			cartRemoveProduct(sku, function(d){
-				console.log(d);
-			});
-		}
-	});
-
-	$('.close_cart').click(function(e){
-		e.preventDefault();
-		$('.cart-modal').removeClass('active');
-	});
-</script>

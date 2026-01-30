@@ -56,6 +56,7 @@ $(function fullwindowpopup() {
 		);
 	});
 });
+
 $('.openmenu').click(function() {
 	$('.menumobile').css({'left' : '0',	'opacity' : '1', 'visibility' : 'visible'});
 	$('.menu-cover').css({'opacity' : '.7', 'visibility' : 'visible'});
@@ -84,6 +85,7 @@ $('.menumobile .cats a[onclick]').click(function(){
 
 	_th.parent('li').children('.sub').slideToggle(400);
 });
+
 $('.ofertasmobile').owlCarousel({
 	loop:true,
 	nav:false,
@@ -106,31 +108,71 @@ $(function(){
 	});
 });
 
-// CARRINHO DRAWER
+// ========== CARRINHO LATERAL ==========
 $(function(){
-    $('.opencart').click(function(e){
+    // Abrir carrinho
+    $(document).on('click', '.opencart', function(e){
+        e.preventDefault();
         e.stopPropagation();
         $('.float_cart').addClass('active');
-        $('.cart-overlay').addClass('active');
         $('body').addClass('drawer-open');
+        console.log('Carrinho aberto');
     });
 
-    $(document).on('click', '.cart-overlay', function(e){
+    // Fechar carrinho com botão X
+    $(document).on('click', '.close-cart', function(e){
         e.preventDefault();
+        e.stopPropagation();
         $('.float_cart').removeClass('active');
-        $('.cart-overlay').removeClass('active');
         $('body').removeClass('drawer-open');
+        console.log('Carrinho fechado com X');
     });
 
-    $(document).keyup(function(e){
-        if(e.key === "Escape"){
+    // Remover produto do carrinho
+    $(document).on('click', '.bt-remover', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        
+        console.log('Botão remover clicado');
+        
+        if(confirm('Deseja realmente remover esse produto?')){
+            var $item = $(this).closest('.product-item');
+            var sku = $item.data('sku');
+            
+            console.log('SKU a remover:', sku);
+            
+            if(sku){
+                cartRemoveProduct(sku, function(response){
+                    console.log('Produto removido:', response);
+                });
+            } else {
+                console.error('SKU não encontrado!');
+            }
+        }
+        
+        return false;
+    });
+
+    // Fechar carrinho clicando fora
+    $(document).on('click', function(e){
+        if(!$(e.target).closest('.float_cart, .opencart').length) {
             $('.float_cart').removeClass('active');
-            $('.cart-overlay').removeClass('active');
             $('body').removeClass('drawer-open');
+            console.log('Carrinho fechado (clique fora)');
         }
     });
 
-    $('.float_cart').click(function(e){
+    // Fechar com ESC
+    $(document).keyup(function(e){
+        if(e.key === "Escape"){
+            $('.float_cart').removeClass('active');
+            $('body').removeClass('drawer-open');
+            console.log('Carrinho fechado (ESC)');
+        }
+    });
+
+    // Impedir propagação dentro do carrinho
+    $(document).on('click', '.float_cart', function(e){
         e.stopPropagation();
     });
 });

@@ -1,0 +1,256 @@
+{% set carrinho = store.cart() %}
+{% set usuario = store.userStore() %}
+{% set whatsapp = store.getWhatsappAttendance() %}
+{% set ofertasPeriodicas = store.periodicOffers() %}
+
+<header>
+	{% if ofertasPeriodicas[0].id %}
+	<component data-modulo="ofertasperiodicas" loading="false" data-paddingtop="true" data-hidescroll="true"></component>
+	{% endif %}
+	
+	<div class="menumobile">
+		{{ include('widgets/menu-mobile.html') }}
+	</div>
+	<div class="menu-cover"></div>
+	<div class="header">
+		<div class="openmenu">
+			<ion-icon name="menu-outline"></ion-icon>
+		</div>
+		<h1 class="Logo_mobile">
+			<a href="./" class="btLogo_mobile" style="background-image:url('{{ store.getLogo() }}');">
+				{{ seo.title }}
+			</a>
+		</h1>
+		<div class="control">
+			<div class="search-btn md-mr-4">
+				<ion-icon name="search-outline"></ion-icon>
+			</div>
+			<div class="sac-top ml-2 mr-2">
+				<ion-icon name="chatbox-outline"></ion-icon>
+				<div class="sac-links">
+					{% if whatsapp.online %}
+					<div class="wpp_link ">
+						<div class="brand_logo">
+							<ion-icon name="logo-whatsapp"></ion-icon>
+						</div>
+						<div class="wpp_lable">
+							<span class="wpp_tell"><a href="{{ whatsapp.url }}" target="_blank">{{ whatsapp.numero_raw }}</a></span>
+						</div>
+					</div>
+					{% endif %}
+					<div class="email-link">
+						<div class="brand_logo">
+							<ion-icon name="mail-outline"></ion-icon>
+						</div>
+						<div class="email_lable">
+							<span class="email"><a href="/fale-conosco/" target="_blank">Fale conosco</a></span>
+						</div>
+					</div>
+					<div class="rastrear">
+						<div class="t mb-3">
+							<ion-icon name="location-outline"></ion-icon>
+							<span class="ml-2">Rastreie aqui seu pedido:</span>
+						</div>
+						<div class="input-wrapper">
+							<form autocomplete="on" style="display: contents;"><input autocomplete="on" id="OrderTracking" name="OrderTracking" onclick="fullwindowpopup()" placeholder="Digite seu código de rastreio" type="text" /></form>
+							<button class="rastreio" type="submit">
+								<ion-icon name="search-outline"></ion-icon>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% if not global.var_mostruario or (global.var_mostruario and not global.var_bloquear_cadastros) %}
+			<div class="d-none d-md-flex conta md-mr-4" id="login_btn">
+
+				<ion-icon name="person-outline"></ion-icon>
+				{% if not global.var_bloquear_cadastros %}
+				<div class="user-opt">
+					{% if not usuario.logged %}
+					<h4>Olá Visitante!</h4>
+					{% if global.var_login_suspenso %}
+					<a href="" class="mymodal" data-include="inc.php?meio=inc_login" data-width="400" title="Efetuar login">
+						{% else%}
+						<a href="/login" target="_self" title="Efetuar login">
+							{% endif %}
+							<ion-icon name="enter-outline"></ion-icon>
+							<br>
+							<span>
+								Faça Login ou</br>Cadastre-se
+							</span>
+					</a>
+					{% else%}
+					{% set usuarioNome = usuario.data.nome|split(' ')[0] %}
+					<h4>Olá {{ usuarioNome|capitalize }}!</h4>
+					<a href="/central/dados/" target="_self" class="user-link">
+						<ion-icon name="cog-outline"></ion-icon>
+						<span>
+							Minha Conta
+						</span>
+					</a>
+					<a href="/central/pedidos/" target="_self" class="user-link">
+						<ion-icon name="file-tray-stacked-outline"></ion-icon>
+						<span>
+							Meus Pedidos
+						</span>
+					</a>
+					<a href="/carrinho/" target="_self" class="user-link">
+						<ion-icon name="cart-outline"></ion-icon>
+						<span>
+							Meu Carrinho
+						</span>
+					</a>
+					<a href="/central/favoritos/" target="_self" class="user-link">
+						<ion-icon name="heart-outline"></ion-icon>
+						<span>
+							Meus Favoritos
+						</span>
+					</a>
+					<a href="#" class="user-link b-desconectar">
+						<ion-icon name="exit-outline"></ion-icon>
+						<span>Sair</span>
+					</a>
+					{% endif %}
+				</div>
+				{% endif %}
+			</div>
+			{% endif %}
+			<div class="cart_container">
+				{% if not global.var_mostruario %}
+				<div class="opencart">
+					<ion-icon name="bag-outline"></ion-icon>
+					<span class="sup">{{ carrinho.total_items }}</span>
+					<div class="float_cart">
+						{% include('widgets/float_cart.html') %}
+					</div>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+
+	</div>
+	{% if page != 'shop_cart'%}
+	<div class="links">
+		<div class="logo-scroll">
+			<a href="./" class="btLogo-scroll" style="background-image:url('{{ store.getLogo() }}');">
+				{{ seo.title }}
+			</a>
+		</div>
+		{% include('widgets/departamentos-desktop.html') %}
+		<div class="control-scroll">
+			<div class="search-btn mr-3 md-mr-4">
+				<ion-icon name="search-outline"></ion-icon>
+			</div>
+			<div class="sac-top ml-2 mr-2">
+				<ion-icon name="chatbox-outline"></ion-icon>
+				<div class="sac-links">
+					{% if whatsapp.online %}
+					<div class="wpp_link ">
+						<div class="brand_logo">
+							<ion-icon name="logo-whatsapp"></ion-icon>
+						</div>
+						<div class="wpp_lable">
+							<span class="wpp_tell"><a href="{{ whatsapp.url }}" target="_blank">{{ whatsapp.numero_raw }}</a></span>
+						</div>
+					</div>
+					{% endif %}
+					<div class="email-link">
+						<div class="brand_logo">
+							<ion-icon name="mail-outline"></ion-icon>
+						</div>
+						<div class="email_lable">
+							<span class="email"><a href="/fale-conosco/" target="_blank">Fale conosco</a></span>
+						</div>
+					</div>
+					<div class="rastrear">
+						<div class="t mb-3">
+							<ion-icon name="location-outline"></ion-icon>
+							<span class="ml-2">Rastreie aqui seu pedido:</span>
+						</div>
+						<div class="input-wrapper">
+							<form autocomplete="on" style="display: contents;"><input autocomplete="on" id="OrderTracking" name="OrderTracking" onclick="fullwindowpopup()" placeholder="Digite seu código de rastreio" type="text" /></form>
+							<button class="rastreio" type="submit">
+								<ion-icon name="search-outline"></ion-icon>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% if not global.var_mostruario or (global.var_mostruario and not global.var_bloquear_cadastros) %}
+			<div class="d-none d-md-flex conta mr-3 md-mr-4" id="login_btn">
+
+				<ion-icon name="person-outline"></ion-icon>
+				{% if not global.var_bloquear_cadastros %}
+				<div class="user-opt">
+					{% if not usuario.logged %}
+					<h4>Olá Visitante!</h4>
+					{% if global.var_login_suspenso %}
+					<a href="" class="mymodal" data-include="inc.php?meio=inc_login" data-width="400" title="Efetuar login">
+						{% else%}
+						<a href="/login" target="_self" title="Efetuar login">
+							{% endif %}
+							<ion-icon name="enter-outline"></ion-icon>
+							<br>
+							<span>
+								Faça Login ou</br>Cadastre-se
+							</span>
+					</a>
+					{% else%}
+					{% set usuarioNome = usuario.data.nome|split(' ')[0] %}
+					<h4>Olá {{ usuarioNome|capitalize }}!</h4>
+					<a href="/central/dados/" target="_self" class="user-link">
+						<ion-icon name="cog-outline"></ion-icon>
+						<span>
+							Minha Conta
+						</span>
+					</a>
+					<a href="/central/pedidos/" target="_self" class="user-link">
+						<ion-icon name="file-tray-stacked-outline"></ion-icon>
+						<span>
+							Meus Pedidos
+						</span>
+					</a>
+					<a href="/carrinho/" target="_self" class="user-link">
+						<ion-icon name="cart-outline"></ion-icon>
+						<span>
+							Meu Carrinho
+						</span>
+					</a>
+					<a href="/central/favoritos/" target="_self" class="user-link">
+						<ion-icon name="heart-outline"></ion-icon>
+						<span>
+							Meus Favoritos
+						</span>
+					</a>
+					<a href="#" class="user-link b-desconectar">
+						<ion-icon name="exit-outline"></ion-icon>
+						<span>Sair</span>
+					</a>
+					{% endif %}
+				</div>
+				{% endif %}
+			</div>
+			{% endif %}
+			<div class="cart_container">
+				{% if not global.var_mostruario %}
+				<div class="opencart">
+					<ion-icon name="bag-outline"></ion-icon>
+					<span class="sup">{{ carrinho.total_items }}</span>
+					<div class="float_cart">
+						{% include('widgets/float_cart.html') %}
+					</div>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+    {% endif %}
+    <div class="search" id="searchMobile">
+        <form action="busca/" method="get">
+            <input type="text" class="form-control" name="q" data-url="produtos_autocomplete.php">
+            <button type="submit">
+                <ion-icon name="search-outline"></ion-icon>
+            </button>
+        </form>
+    </div>
+</header>

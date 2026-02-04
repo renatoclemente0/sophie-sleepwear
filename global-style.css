@@ -724,7 +724,7 @@ body{
 	line-height: 1.4;
 	text-align: left;
 	padding: 0;
-	margin: 12px auto 8px 8%;
+	margin: 12px auto 8px 5%;
 	overflow: hidden;
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
@@ -751,7 +751,7 @@ body{
 	text-align: left;
 	width: 80%;
 	max-width: 80%;
-	margin: 0 auto 8px 8%;
+	margin: 0 auto 8px 5%;
 	padding: 0;
 }
 
@@ -761,7 +761,7 @@ body{
 	width: 80%;
 	max-width: 80%;
 	float: none;
-	margin: 0 auto 4px 8%;
+	margin: 0 auto 4px 5%;
 	min-height: fit-content;
 	padding: 0;
 	text-align: left !important;
@@ -844,7 +844,7 @@ body{
 	max-width: 80%;
 	float: none;
 	padding: 0;
-	margin: 0 auto 12px 8%;
+	margin: 0 auto 12px 5%;
 	box-sizing: border-box;
 	overflow: hidden;
 }
@@ -870,7 +870,7 @@ body{
 	width: 80%;
 	max-width: 80%;
 	float: none;
-	margin: 0 auto 8px 8%;
+	margin: 0 auto 8px 5%;
 	padding: 0;
 	box-sizing: border-box;
 	overflow: hidden;
@@ -906,7 +906,7 @@ body{
 	width: 80%;
 	max-width: 80%;
 	float: none;
-	margin: 0 auto 8px 8%;
+	margin: 0 auto 8px 5%;
 	padding: 0;
 	box-sizing: border-box;
 	display: flex;
@@ -948,7 +948,7 @@ body{
 	width: 80%;
 	max-width: 80%;
 	float: none;
-	margin: 0 auto 8px 8%;
+	margin: 0 auto 8px 5%;
 	padding: 0;
 	box-sizing: border-box;
 	display: flex;
@@ -980,7 +980,7 @@ body{
 	width: 80%;
 	max-width: 80%;
 	float: none;
-	margin: 0 auto 8px 8%;
+	margin: 0 auto 8px 5%;
 	padding: 0;
 	box-sizing: border-box;
 	overflow: hidden;
@@ -1244,8 +1244,61 @@ body{
 	background-color: var(--scrolltop-cor-de-fundo);
 }
 
-// CART DRAWER
+.row{
+	margin-right: 30px !important;
+	margin-left: 30px !important;
+}
 
-// ========================================
-// CART DRAWER - Carrinho Lateral
-// ========================================
+/* ========================================
+   BREAKPOINTS PRODUCT ITEM
+   ======================================== */
+
+/* Tablet - até 992px */
+@media (max-width: 992px) {
+	.row {
+		margin-right: 20px !important;
+		margin-left: 20px !important;
+	}
+}
+
+/* Mobile - até 768px */
+@media (max-width: 768px) {
+	.row {
+		margin-right: 15px !important;
+		margin-left: 15px !important;
+	}
+	
+	.produtos .item .produto,
+	.produtos .item .valor,
+	.produtos .item .parcelamento,
+	.produtos .item .variacoes,
+	.produtos .item .cores,
+	.produtos .item .atacado,
+	.produtos .item .more,
+	.produtos .item .countdown,
+	.produtos .item .rate_box {
+		margin-left: 2%;
+		margin-right: auto;
+	}
+}
+
+/* Mobile pequeno - até 480px */
+@media (max-width: 480px) {
+	.row {
+		margin-right: 10px !important;
+		margin-left: 10px !important;
+	}
+	
+	.produtos .item .produto,
+	.produtos .item .valor,
+	.produtos .item .parcelamento,
+	.produtos .item .variacoes,
+	.produtos .item .cores,
+	.produtos .item .atacado,
+	.produtos .item .more,
+	.produtos .item .countdown,
+	.produtos .item .rate_box {
+		margin-left: 2%;
+		margin-right: auto;
+	}
+}

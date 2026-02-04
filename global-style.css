@@ -588,6 +588,8 @@ body{
 	padding-right: 6px;
 	padding-left: 6px;
 	margin-bottom: 12px;
+	box-sizing: border-box;
+	overflow: hidden;
 }
 
 /* Container principal do card */
@@ -604,10 +606,19 @@ body{
 	overflow: hidden;
 	transition: box-shadow 0.2s ease, transform 0.2s ease;
 	position: relative;
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
 }
 
 .produtos .item:hover {
 	background-color: var(--produto_box_fundo_hover);
+}
+
+/* Garantir que todos os filhos respeitem a largura */
+.produtos .item > * {
+	max-width: 100%;
+	box-sizing: border-box;
 }
 
 /* Container da foto */
@@ -658,9 +669,9 @@ body{
 }
 
 .produtos .item .fotos .it .img img {
-	max-width: 100%;
-	max-height: 100%;
-	object-fit: contain;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 .produtos .item .fotos .it .img:nth-child(1) {
@@ -695,9 +706,15 @@ body{
 }
 
 /* Nome do produto */
+/* 
+ * OBSERVAÇÃO: A largura do conteúdo foi reduzida para ~90% e centralizada
+ * porque as imagens do cliente foram enviadas com espaços invisíveis nas laterais.
+ * Se o cliente corrigir as imagens, pode remover o max-width e margin auto daqui.
+ */
 .produtos .item .produto {
 	color: var(--produto_nome_cor);
-	width: 100%;
+	width: 80%;
+	max-width: 80%;
 	height: auto;
 	min-height: 40px;
 	max-height: 54px;
@@ -706,12 +723,15 @@ body{
 	font-weight: 500;
 	line-height: 1.4;
 	text-align: left;
-	padding: 0 12px;
-	margin: 12px 0 8px 0;
+	padding: 0;
+	margin: 12px auto 8px 8%;
 	overflow: hidden;
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
+	word-wrap: break-word;
+	word-break: break-word;
+	box-sizing: border-box;
 }
 
 @media (min-width: 800px) {
@@ -726,24 +746,31 @@ body{
 }
 
 /* Avaliações */
+/* OBSERVAÇÃO: Largura reduzida devido às imagens com espaços invisíveis */
 .produtos .item .rate_box {
 	text-align: left;
-	margin-bottom: 8px;
-	padding: 0 12px;
+	width: 80%;
+	max-width: 80%;
+	margin: 0 auto 8px 8%;
+	padding: 0;
 }
 
 /* Valor */
+/* OBSERVAÇÃO: Largura reduzida devido às imagens com espaços invisíveis */
 .produtos .item .valor {
-	width: 100%;
+	width: 80%;
+	max-width: 80%;
 	float: none;
-	margin-bottom: 4px;
+	margin: 0 auto 4px 8%;
 	min-height: fit-content;
-	padding: 0 12px;
+	padding: 0;
 	text-align: left !important;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 	gap: 2px;
+	box-sizing: border-box;
+	overflow: hidden;
 }
 
 .produtos .item .valor .valor_de {
@@ -790,12 +817,15 @@ body{
 }
 
 /* Countdown */
+/* OBSERVAÇÃO: Largura reduzida devido às imagens com espaços invisíveis */
 .produtos .item .countdown {
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
-	margin: 0 0 8px 0;
-	padding: 0 12px;
+	width: 80%;
+	max-width: 80%;
+	margin: 0 auto 8px 5%;
+	padding: 0;
 }
 
 .produtos .item .countdown span {
@@ -808,11 +838,15 @@ body{
 }
 
 /* Parcelamento */
+/* OBSERVAÇÃO: Largura reduzida devido às imagens com espaços invisíveis */
 .produtos .item .parcelamento {
-	width: 100%;
+	width: 80%;
+	max-width: 80%;
 	float: none;
-	padding: 0 12px;
-	margin-bottom: 12px;
+	padding: 0;
+	margin: 0 auto 12px 8%;
+	box-sizing: border-box;
+	overflow: hidden;
 }
 
 .produtos .item .parcelamento p {
@@ -820,6 +854,8 @@ body{
 	font-size: 11px;
 	line-height: 1.4;
 	margin: 0;
+	word-wrap: break-word;
+	word-break: break-word;
 }
 
 @media (min-width: 992px) {
@@ -829,11 +865,15 @@ body{
 }
 
 /* Atacado */
+/* OBSERVAÇÃO: Largura reduzida devido às imagens com espaços invisíveis */
 .produtos .item .atacado {
-	width: 100%;
+	width: 80%;
+	max-width: 80%;
 	float: none;
-	margin-bottom: 8px;
-	padding: 0 12px;
+	margin: 0 auto 8px 8%;
+	padding: 0;
+	box-sizing: border-box;
+	overflow: hidden;
 }
 
 .produtos .item .atacado h4 {
@@ -861,11 +901,17 @@ body{
 }
 
 /* Cores */
+/* OBSERVAÇÃO: Largura reduzida devido às imagens com espaços invisíveis */
 .produtos .item .cores {
-	width: 100%;
+	width: 80%;
+	max-width: 80%;
 	float: none;
-	margin-bottom: 8px;
-	padding: 0 12px;
+	margin: 0 auto 8px 8%;
+	padding: 0;
+	box-sizing: border-box;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
 }
 
 .produtos .item .cores .cor_primaria {
@@ -873,13 +919,14 @@ body{
 	height: 20px;
 	position: relative;
 	border: solid 1px var(--produto_cor_borda);
-	margin: 0 4px 0 0;
+	margin: 0;
 	display: inline-block;
 	border-radius: 50%;
 	overflow: hidden;
 	z-index: 0;
 	cursor: pointer;
 	transition: border-color 0.2s ease;
+	flex-shrink: 0;
 }
 
 .produtos .item .cores .cor_primaria:hover,
@@ -896,11 +943,17 @@ body{
 }
 
 /* Variações (tamanhos) */
+/* OBSERVAÇÃO: Largura reduzida devido às imagens com espaços invisíveis */
 .produtos .item .variacoes {
-	width: 100%;
+	width: 80%;
+	max-width: 80%;
 	float: none;
-	margin-bottom: 8px;
-	padding: 0 12px;
+	margin: 0 auto 8px 8%;
+	padding: 0;
+	box-sizing: border-box;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
 }
 
 .produtos .item .variacoes .variacao {
@@ -911,7 +964,7 @@ body{
 	display: inline-flex;
 	justify-content: center;
 	align-items: center;
-	margin: 2px 4px 2px 0;
+	margin: 0;
 	border-radius: 4px;
 	transition: all 0.2s ease;
 }
@@ -922,11 +975,15 @@ body{
 }
 
 /* Categorias / More */
+/* OBSERVAÇÃO: Largura reduzida devido às imagens com espaços invisíveis */
 .produtos .item .more {
-	width: 100%;
+	width: 80%;
+	max-width: 80%;
 	float: none;
-	margin-bottom: 8px;
-	padding: 0 12px;
+	margin: 0 auto 8px 8%;
+	padding: 0;
+	box-sizing: border-box;
+	overflow: hidden;
 }
 
 .produtos .item .more a {
@@ -934,6 +991,9 @@ body{
 	font-size: 11px;
 	line-height: 1.4;
 	color: var(--produto_categorias);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 /* Selos */
@@ -1070,7 +1130,7 @@ body{
 
 .produtos .item .botoes a {
 	flex: 1;
-	padding: 16px 16px;
+	padding: 14px 16px;
 	font-size: 13px;
 	font-weight: 600;
 	text-align: center;

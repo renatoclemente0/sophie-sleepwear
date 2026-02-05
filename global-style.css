@@ -1302,3 +1302,13 @@ body{
 		margin-right: auto;
 	}
 }
+
+.float_cart {
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.bt.bt-go-carrinho{
+	display: none;
+}
+

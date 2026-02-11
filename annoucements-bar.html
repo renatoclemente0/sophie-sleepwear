@@ -1,0 +1,98 @@
+<div id="announcement-bar" class="announcement-bar">
+  <!-- Mensagem 1 -->
+  <div class="announcement-item active">
+    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="1" y="3" width="15" height="13"></rect>
+      <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+      <circle cx="5.5" cy="18.5" r="2.5"></circle>
+      <circle cx="18.5" cy="18.5" r="2.5"></circle>
+    </svg>
+    <span>Frete para todo o Brasil</span>
+  </div>
+
+  <!-- Mensagem 2 -->
+  <div class="announcement-item">
+    <span class="icon-minimalist">$</span>
+    <span>10% OFF CUPOM <strong>BEMVINDA10</strong></span>
+  </div>
+
+  <!-- Mensagem 3 -->
+  <div class="announcement-item">
+    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+    </svg>
+    <span>Loja 100% Segura</span>
+  </div>
+</div>
+
+<stye>
+	.announcement-bar {
+  background-color: #d32f2f; 
+  color: #ffffff;
+  width: 100%;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  z-index: 1 !important; /* VALOR BAIXO: Garante que ela fique atrás de qualquer menu ou carrinho */
+
+  .announcement-item {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 8px 15px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    &.active {
+      display: flex;
+      animation: slideIn 0.5s ease-out;
+    }
+
+    .icon-svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .icon-minimalist {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    strong {
+      border: 1px dashed rgba(255, 255, 255, 0.5);
+      padding: 2px 6px;
+    }
+  }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+</style>
+
+<script>
+(function() {
+  const items = document.querySelectorAll('.announcement-item');
+  let index = 0;
+
+  if (items.length > 1) {
+    setInterval(() => {
+      items[index].classList.remove('active');
+      index = (index + 1) % items.length;
+      items[index].classList.add('active');
+    }, 3000);
+  }
+})();
+</script>

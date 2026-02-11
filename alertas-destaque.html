@@ -1,0 +1,61 @@
+{% set alertas = store.featuredIcon() %}
+{% if alertas|length > 0 %}
+<div id="alerts">
+	<div class="central owlCarousel">
+		{% for alerta in alertas %}
+			{% set icone = alerta.icone_tipo == '1' ?
+			'<i class="fa ' ~ alerta.icone ~ '" style="color: ' ~ alerta.cor_icone ~ '"></i>' :
+			'<img src="' ~ alerta.icone ~ '" alt="' ~ alerta.nome ~ '" />'
+			%}
+			{% if alerta.link %}
+			<a class="alerts-item" href="{{ alerta.link }}" target="{{ alerta.target }}">
+				{{ icone|raw }}
+				<span>{{ alerta.nome|raw }}</span>
+			</a>
+			{% else %}
+			<div class="alerts-item" style="background-color: {{ alerta.cor_fundo }}">
+				{{ icone|raw }}
+				<span style="color: {{ alerta.cor_texto }}">
+					{{ alerta.nome|raw }}
+				</span>
+			</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+</div>
+<script>
+	$(function(){
+		$('#alerts .owlCarousel').owlCarousel({
+			nav:true,
+			dots:true,
+			autoplay:true, 
+			loop: true, 
+			rewind: false, 
+			autoplayHoverPause:false, 
+			autoplayTimeout: 5 * 1000, 
+			touchDrag: true, 
+			mouseDrag: true,
+			animateOut: 'bounceOutLeft',
+			animateIn: 'bounceInRight',
+			responsiveClass: true,
+			autoHeight: true,
+			navText: ["<i class='ri-arrow-left-wide-line'></i>","<i class='ri-arrow-right-wide-line'></i>"],
+			responsive: {
+				0: {
+					items: 1,
+					margin: 0,
+					slideBy: 1,
+					nav:false,
+					dots:false
+				},
+				800: {
+					items: 5,
+					margin: 0,
+					slideBy: 1,
+					loop: false
+				}
+			}
+		});
+	});
+</script>
+{% endif %}
